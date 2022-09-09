@@ -1,0 +1,745 @@
+
+!!! A. CONNECT DC-CORE TO DFA BORDER LEAF NODES !!!
+
+!--GRKRI1SDCCOR01A--!
+!
+
+!1. Build L3 connections & BGP to GRKRI1SWRDFA01A
+
+interface port-channel2103
+  description Port-channel 2103 to GRKRI1SWRDFA01A
+  no switchport
+  mtu 9216
+  medium p2p
+  no bfd echo
+  bfd per-link
+  bfd interval 250 min_rx 250 multiplier 4
+  no ip redirects
+  ip address 10.24.4.110/31
+  no ipv6 redirects
+
+interface Ethernet1/3
+  description GRKRI1SDCCOR01A Eth1/3 <> Eth1/5 GRKRI1SWRDFA01A -Link Po2103-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2103 force mode active
+  no shutdown
+
+interface Ethernet2/3
+  description GRKRI1SDCCOR01A Eth2/3 <> Eth1/6 GRKRI1SWRDFA01A -Link Po2103-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2103 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65410
+  neighbor 10.24.4.111
+    bfd
+    remote-as 65430
+    description GRKRI1SWRDFA01A
+    password Dc1CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+!2. Build L3 connections & BGP to GRKRI1SWRDFA01B
+
+interface port-channel2104
+  description Port-channel 2104 to GRKRI1SWRDFA01B
+  no switchport
+  mtu 9216
+  medium p2p
+  no bfd echo
+  bfd per-link
+  bfd interval 250 min_rx 250 multiplier 4
+  no ip redirects
+  ip address 10.24.4.112/31
+  no ipv6 redirects
+
+interface Ethernet1/3
+  description GRKRI1SDCCOR01A Eth1/4 <> Eth1/5 GRKRI1SWRDFA01B -Link Po2104-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2104 force mode active
+  no shutdown
+
+interface Ethernet2/3
+  description GRKRI1SDCCOR01A Eth2/4 <> Eth1/6 GRKRI1SWRDFA01B -Link Po2104-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2104 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+  
+router bgp 65410
+  neighbor 10.24.4.113
+    bfd
+    remote-as 65430
+    description GRKRI1SWRDFA01B
+    password Dc1CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+
+
+
+!-GRKRI1SDCCOR01B-!
+!
+
+!3. Build L3 connections & BGP to GRKRI1SWRDFA01A
+
+interface port-channel2103
+  description Port-channel 2103 to GRKRI1SWRDFA01A
+  no switchport
+  mtu 9216
+  medium p2p
+  no bfd echo
+  bfd per-link
+  bfd interval 250 min_rx 250 multiplier 4
+  no ip redirects
+  ip address 10.24.4.126/31
+  no ipv6 redirects
+
+interface Ethernet1/3
+  description GRKRI1SDCCOR01B Eth1/3 <> Eth1/7 GRKRI1SWRDFA01A -Link Po2103-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2103 force mode active
+  no shutdown
+
+interface Ethernet2/3
+  description GRKRI1SDCCOR01B Eth2/3 <> Eth1/8 GRKRI1SWRDFA01A -Link Po2103-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2103 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65410
+  neighbor 10.24.4.127
+    bfd
+    remote-as 65430
+    description GRKRI1SWRDFA01A
+    password Dc1CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+!4. Build L3 connections & BGP to GRKRI1SWRDFA01B
+
+interface port-channel2104
+  description Port-channel 2104 to GRKRI1SWRDFA01B
+  no switchport
+  mtu 9216
+  medium p2p
+  no bfd echo
+  bfd per-link
+  bfd interval 250 min_rx 250 multiplier 4
+  no ip redirects
+  ip address 10.24.4.128/31
+  no ipv6 redirects
+
+interface Ethernet1/4
+  description GRKRI1SDCCOR01B Eth1/4 <> Eth1/7 GRKRI1SWRDFA01B -Link Po2104-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2104 force mode active
+  no shutdown
+
+interface Ethernet2/4
+  description GRKRI1SDCCOR01B Eth2/4 <> Eth1/8 GRKRI1SWRDFA01B -Link Po2104-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2104 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65410
+  neighbor 10.24.4.129
+    bfd
+    remote-as 65430
+    description GRKRI1SWRDFA01B
+    password Dc1CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+
+
+
+!--GRGRA1SDCCOR01A--!
+!
+
+!1. Build L3 connections & BGP to GRGRA1SWRDFA01A
+
+interface port-channel2103
+  description Port-channel 2103 to GRGRA1SWRDFA01A
+  no switchport
+  mtu 9216
+  medium p2p
+  no bfd echo
+  bfd per-link
+  bfd interval 250 min_rx 250 multiplier 4
+  no ip redirects
+  ip address 10.24.5.110/31
+  no ipv6 redirects
+
+interface Ethernet1/3
+  description GRGRA1SDCCOR01A Eth1/3 <> Eth1/5 GRGRA1SWRDFA01A -Link Po2103-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2103 force mode active
+  no shutdown
+
+interface Ethernet2/3
+  description GRGRA1SDCCOR01A Eth2/3 <> Eth1/6 GRGRA1SWRDFA01A -Link Po2103-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2103 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65411
+  neighbor 10.24.5.111
+    bfd
+    remote-as 65431
+    description GRGRA1SWRDFA01A
+    password Dc2CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+!2. Build L3 connections & BGP to GRGRA1SWRDFA01B
+
+interface port-channel2104
+  description Port-channel 2104 to GRGRA1SWRDFA01B
+  no switchport
+  mtu 9216
+  medium p2p
+  no bfd echo
+  bfd per-link
+  bfd interval 250 min_rx 250 multiplier 4
+  no ip redirects
+  ip address 10.24.5.112/31
+  no ipv6 redirects
+
+interface Ethernet1/4
+  description GRGRA1SDCCOR01A Eth1/4 <> Eth1/5 GRGRA1SWRDFA01B -Link Po2104-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2104 force mode active
+  no shutdown
+
+interface Ethernet2/4
+  description GRGRA1SDCCOR01A Eth2/4 <> Eth1/6 GRGRA1SWRDFA01B -Link Po2104-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2104 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65411
+  neighbor 10.24.5.113
+    bfd
+    remote-as 65431
+    description GRGRA1SWRDFA01B
+    password Dc2CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+
+
+
+!-GRGRA1SDCCOR01B-!
+!
+
+!3. Build L3 connections & BGP to GRGRA1SWRDFA01A
+
+interface port-channel2103
+  description Port-channel 2103 to GRGRA1SWRDFA01A
+  no switchport
+  mtu 9216
+  medium p2p
+  no bfd echo
+  bfd per-link
+  bfd interval 250 min_rx 250 multiplier 4
+  no ip redirects
+  ip address 10.24.5.126/31
+  no ipv6 redirects
+
+interface Ethernet1/3
+  description GRGRA1SDCCOR01B Eth1/3 <> Eth1/7 GRGRA1SWRDFA01A -Link Po2103-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2103 force mode active
+  no shutdown
+
+interface Ethernet2/3
+  description GRGRA1SDCCOR01B Eth2/3 <> Eth1/8 GRGRA1SWRDFA01A -Link Po2103-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2103 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65411
+  neighbor 10.24.5.127
+    bfd
+    remote-as 65431
+    description GRGRA1SWRDFA01A
+    password Dc2CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+!4. Build L3 connections & BGP to GRGRA1SWRDFA01B
+
+interface port-channel2104
+  description Port-channel 2104 to GRGRA1SWRDFA01B
+  no switchport
+  mtu 9216
+  medium p2p
+  no bfd echo
+  bfd per-link
+  bfd interval 250 min_rx 250 multiplier 4
+  no ip redirects
+  ip address 10.24.5.128/31
+  no ipv6 redirects
+
+interface Ethernet1/4
+  description GRGRA1SDCCOR01B Eth1/4 <> Eth1/7 GRGRA1SWRDFA01B -Link Po2104-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2104 force mode active
+  no shutdown
+
+interface Ethernet2/4
+  description GRGRA1SDCCOR01B Eth2/4 <> Eth1/8 GRGRA1SWRDFA01B -Link Po2104-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2104 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65411
+  neighbor 10.24.5.129
+    bfd
+    remote-as 65431
+    description GRGRA1SWRDFA01B
+    password Dc2CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+
+
+!!! B. CONNECT DC-CORE TO LGCY CORE NODES !!!
+
+!--GRKRI1SDCCOR01A--!
+!
+
+!1. Build L3 connections & BGP to GRKRI1SWRCOR01A
+
+interface port-channel2105
+  description Port-channel 2105 to GRKRI1SWRCOR01A
+  no switchport
+  mtu 9216
+  medium p2p
+  no ip redirects
+  ip address 10.24.4.114/31
+  no ipv6 redirects
+
+interface Ethernet1/5
+  description GRKRI1SDCCOR01A Eth1/5 <> Gig1/0/43 GRKRI1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet1/6
+  description GRKRI1SDCCOR01A Eth1/6 <> Gig2/0/43 GRKRI1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet2/5
+  description GRKRI1SDCCOR01A Eth2/5 <> Gig1/0/44 GRKRI1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet2/6
+  description GRKRI1SDCCOR01A Eth2/5 <> Gig2/0/44 GRKRI1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65410
+  neighbor 10.24.4.115
+    bfd
+    remote-as 65403
+    description GRKRI1SWRCOR01A
+    password Dc1CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+!--GRKRI1SDCCOR01B--!
+!
+
+!2. Build L3 connections & BGP to GRKRI1SWRCOR01A
+
+interface port-channel2105
+  description Port-channel 2105 to GRKRI1SWRCOR01A
+  no switchport
+  mtu 9216
+  medium p2p
+  no ip redirects
+  ip address 10.24.4.130/31
+  no ipv6 redirects
+
+interface Ethernet1/5
+  description GRKRI1SDCCOR01B Eth1/5 <> Gig1/0/45 GRKRI1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet1/6
+  description GRKRI1SDCCOR01B Eth1/6 <> Gig2/0/45 GRKRI1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet2/5
+  description GRKRI1SDCCOR01B Eth2/5 <> Gig1/0/46 GRKRI1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet2/6
+  description GRKRI1SDCCOR01B Eth2/6 <> Gig2/0/46 GRKRI1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65410
+  neighbor 10.24.4.131
+    bfd
+    remote-as 65403
+    description GRKRI1SWRCOR01A
+    password Dc1CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+
+
+
+
+!--GRGRA1SDCCOR01A--!
+!
+
+!1. Build L3 connections & BGP to GRGRA1SWRCOR01A
+
+interface port-channel2105
+  description Port-channel 2105 to GRGRA1SWRCOR01A
+  no switchport
+  mtu 9216
+  medium p2p
+  no ip redirects
+  ip address 10.24.5.114/31
+  no ipv6 redirects
+
+interface Ethernet1/5
+  description GRGRA1SDCCOR01A Eth1/5 <> Gig1/0/43 GRGRA1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet1/6
+  description GRGRA1SDCCOR01A Eth1/6 <> Gig2/0/43 GRGRA1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet2/5
+  description GRGRA1SDCCOR01A Eth2/5 <> Gig1/0/44 GRGRA1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet2/6
+  description GRGRA1SDCCOR01A Eth2/5 <> Gig2/0/44 GRGRA1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65411
+  neighbor 10.24.5.115
+    bfd
+    remote-as 65403
+    description GRGRA1SWRCOR01A
+    password Dc2CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+!--GRGRA1SDCCOR01B--!
+!
+
+!2. Build L3 connections & BGP to GRGRA1SWRCOR01A
+
+interface port-channel2105
+  description Port-channel 2105 to GRGRA1SWRCOR01A
+  no switchport
+  mtu 9216
+  medium p2p
+  no ip redirects
+  ip address 10.24.5.130/31
+  no ipv6 redirects
+
+interface Ethernet1/5
+  description GRGRA1SDCCOR01B Eth1/5 <> Gig1/0/45 GRGRA1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet1/6
+  description GRGRA1SDCCOR01B Eth1/6 <> Gig2/0/45 GRGRA1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet2/5
+  description GRGRA1SDCCOR01B Eth2/5 <> Gig1/0/46 GRGRA1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+interface Ethernet2/6
+  description GRGRA1SDCCOR01B Eth2/6 <> Gig2/0/46 GRGRA1SWRCOR01A -Link Po2105-
+  no switchport
+  mtu 9216
+  medium p2p
+  channel-group 2105 force mode active
+  no shutdown
+
+ip as-path access-list 99 seq 1 deny ".*
+
+route-map RM-BGP-FILTER-ALL deny 10
+  description Filter All prefixes in-out
+
+router bgp 65411
+  neighbor 10.24.5.131
+    bfd
+    remote-as 65403
+    description GRGRA1SWRCOR01A
+    password Dc2CORb2B!20
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-map RM-BGP-FILTER-ALL in
+      route-map RM-BGP-FILTER-ALL out
+      soft-reconfiguration inbound always
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!-RENTI BGP SUPLEMENTAL CONFIG-!
+
+
+    ip as-path access-list 99 seq 1 deny ".*
+    route-map RM-BGP-FILTER-ALL deny 10
+        description Filter All prefixes in-out
+
+    router bgp 65411
+      neighbor 10.24.5.111
+        address-family ipv4 unicast
+                send-community
+                send-community extended
+                route-map RM-BGP-FILTER-ALL in
+                route-map RM-BGP-FILTER-ALL out 
+  sho run bgp
+      neighbor 10.24.5.113
+        address-family ipv4 unicast
+                send-community
+                send-community extended
+                route-map RM-BGP-FILTER-ALL in
+                route-map RM-BGP-FILTER-ALL out 
+  sho run bgp
+       neighbor 10.24.5.115
+        address-family ipv4 unicast
+                send-community
+                send-community extended
+                route-map RM-BGP-FILTER-ALL in
+                route-map RM-BGP-FILTER-ALL out 
+
+
+
+    ip as-path access-list 99 seq 1 deny ".*
+    route-map RM-BGP-FILTER-ALL deny 10
+        description Filter All prefixes in-out
+
+    router bgp 65411
+      neighbor 10.24.5.127
+        address-family ipv4 unicast
+                send-community
+                send-community extended
+                route-map RM-BGP-FILTER-ALL in
+                route-map RM-BGP-FILTER-ALL out 
+  sho run bgp
+      neighbor 10.24.5.129
+        address-family ipv4 unicast
+                send-community
+                send-community extended
+                route-map RM-BGP-FILTER-ALL in
+                route-map RM-BGP-FILTER-ALL out 
+  sho run bgp
+       neighbor 10.24.5.131
+        address-family ipv4 unicast
+                send-community
+                send-community extended
+                route-map RM-BGP-FILTER-ALL in
+                route-map RM-BGP-FILTER-ALL out 
+
+
